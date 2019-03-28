@@ -1,0 +1,56 @@
+1、创建apps：
+  petalinux-create -t apps --template c -n <apps-name>
+  该apps所在路径为：<project-path>/project-spec/meta-user/recipes-apps/<apps-name>
+2、配置包含/不包含apps：
+  petalinux-config -c rootfs --> apps列表中按y选择apps，按n取消选择apps
+3、修改apps：
+  进入apps所在路径，然后执行以下操作：
+  （1）添加.c、.h文件：
+    i. 将.c、.h文件拷贝至files目录下；
+    ii. 编辑files目录下的Makefile文件，修改编译规则；
+    iii. 编译apps所在路径下的<apps-name>.bb文件：在SRC_URI值中添加相应文件，例如加入hello.c、hello.h文件：
+    
+    SRC_URI = " ... \
+              file://hello.c \
+              file://hello.h \
+              file://Makefile \
+              "
+   （2）修改apps为脚本文件，以名为autoinit自启动脚本为例：
+     i. 将autoinit文件拷贝至files目录下；
+     ii. 删除files目录下的Makefile文件；
+     iii. 编译apps所在路径下的<apps-name>.bb文件：
+      将SRC_URI字段修改为:
+      SRC_URI = "file://autoinit \
+                "
+      增加以下字段:
+      inherit update-rc.d
+      INITSCRIPT_NAME = "autoinit"
+      INITSCRIPT_PARAMS = "start 99 S ."
+      
+      修改do_install，将文件拷贝至init.d目录下：
+      do_install() {
+        install -d ${D}/${sysconfdir}/init.d
+        install -m 0755 ${S}/autoinit ${D}/${sysconfdir}/init.d/autoinit
+      }
+      
+      最后增加字段：
+      FILES_${PN} += "${sysconfdir}/*"
+   （3）修改apps为预编译的可执行文件，以名为arp的预编译的可执行文件为例：
+     i. 将arp文件拷贝至files目录下；
+     ii. 删除files目录下的Makefile文件；
+     iii. 编译apps所在路径下的<apps-name>.bb文件：
+      将SRC_URI字段修改为:
+      SRC_URI = "file://arp \
+                "
+      增加以下字段:
+      S = "${WORKDIR}"
+      INSANE_SKIP_${PN} = "ldflags"
+      INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
+      INHIBIT_PACKAGE_STRIP = "1"
+      
+      修改do_install，将文件拷贝至/usr/bin目录下：
+      do_install() {
+        install -d ${D}/${bindir}
+        install -m 0755 ${S}/arp ${D}/${bindir}
+      }
+      

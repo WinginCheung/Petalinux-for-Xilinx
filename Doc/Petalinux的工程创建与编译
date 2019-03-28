@@ -1,0 +1,47 @@
+1、Petalinux工程的创建：
+（1）基于Vivado产生的hdf文件的工程创建：
+  petalinux-create -t project --template <PLATFORM> -n <PROJECT_NAME>
+  petalinux-config --get-hw-description=<PATH-TO-HDF/DSA-DIRECTORY>
+  
+  其中：PLATFORM可为zynq,zynqMP与microblaze，根据对应芯片种类确定；
+  配置CONFIG_SUBSYSTEM_MACHINE_NAME：petalinux-config -> DTG Settings ---> (template) MACHINE_NAME，该值可为：
+  ac701-full
+  ac701-lite
+  kc705-full
+  kc705-lite
+  kcu105
+  zc1254-reva
+  zc1275-reva
+  zc1275-revb
+  zc1751-dc1
+  zc1751-dc2
+  zc702 zc706
+  avnet-ultra96-rev1
+  zcu100-reva
+  zcu100-revb
+  zcu100-revc
+  zcu102-rev1.0
+  zcu102-reva
+  zcu102-revb
+  zcu104-reva
+  zcu104-revc
+  zcu106-reva
+  zcu111-reva
+  zedboard
+
+（2）基于BSP文件的工程创建：
+  petalinux-create -t project -n <PROJECT_NAME> -s <path-to-bsp>
+  
+2、Petalinux工程的配置：
+（1）配置Petalinux全局配置：petalinux-config
+（2）配置kernel：petalinux-config -c kernel
+（3）配置rootfs：petalinux-config -c rootfs
+
+3、Petalinux工程的编译：
+（1）编译：petalinux-build
+（2）清除编译：petalinux-build -x distclean
+
+4、打包启动文件BOOT.bin：
+  for Zynq-7000：petalinux-package --boot --fsbl <FSBL image> --fpga <FPGA bitstream> --u-boot
+  for MicroBlaze：petalinux-package --boot --fpga <FPGA bitstream> --u-boot --kernel
+  for Zynq UltraScale+ MPSoC：petalinux-package --boot --format BIN --fsbl <FSBL image> --u-boot <u-boot image> --pmufw <pmufw image> --fpga <FPGA bitstream>

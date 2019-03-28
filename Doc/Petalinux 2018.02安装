@@ -1,0 +1,45 @@
+1、下载Petalinux 2018.02
+	Petalinux可在Xilinx官网免费下载（需注册下载！）,安装包大小为6.15G;
+	官网地址：https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools/2018-2.html
+	下载地址：https://www.xilinx.com/member/forms/download/xef.html?filename=petalinux-v2018.2-final-installer.run
+2、安装Petalinux 2018.02的依赖库，参考手册UG1144(v2018.02)
+	# install_petalinux201802_lib.sh
+	#!/bin/bash
+	sudo apt-get -y install tofrodos  iproute2 gawk
+	sudo apt-get -y install gcc git make
+	sudo apt-get -y install xvfb
+	sudo apt-get -y install net-tools  libncurses5-dev  tftpd
+	sudo apt-get -y install zlib1g-dev zlib1g-dev:i386 libssl-dev  flex bison libselinux1
+	sudo apt-get -y install gnupg wget diffstat chrpath socat xterm
+	sudo apt-get -y install autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib build-essential libsdl1.2-dev libglib2.0-dev
+	sudo apt-get -y install screen pax gzip tar
+	建议安装依赖库之前先更新系统及其库等，确保所有软件在最新状态。
+3、安装tftp
+	# install_tftp.sh
+	#!/bin/bash
+	configfile="/etc/default/tftpd-hpa"
+	sudo apt install -y tftpd-hpa tftp-hpa
+	sudo cp ${configfile} /etc/default/tftpd-hpa.bck
+	sudo sed -i '/^TFTP_OPTION/d' ${configfile}
+	sudo sed -i '$a TFTP_OPTION=\"--secure --create\"' ${configfile}
+	sudo chown -R tftp /var/lib/tftpboot/
+	echo "export TFTP_DIRECTORY=\`cat /etc/default/tftpd-hpa | grep TFTP_DIRECTORY | cut -d \"\\\"\" -f 2\`" | sudo tee -a /etc/bash.bashrc >/dev/null
+	sudo systemctl enable tftpd-hpa
+	sudo systemctl restart tftpd-hpa
+4、安装Petalinux
+（1）建立安装目录，建议在用户目录下，此目录可修改，但不建议安装到系统目录下：
+	mkdir -p ~/Xilinx/Petalinux201802
+（2）进入petalinux-v2018.2-final-installer.run安装包所在路径，执行以下操作：
+	./petalinux-v2018.2-final-installer.run ~/Xilinx/Petalinux201802
+	安装过程中会出现3个许可，请键入"y"并按回车键同意即可。
+5、系统相关配置
+（1）修改/bin/sh，Ubuntu的默认的/bin/sh为dash，而根据UG1144的需求，我们需修改/bin/sh为bash：
+	sudo rm /bin/sh
+	sudo ln -s /bin/bash /bin/sh
+（2）设置Petalinux用户环境
+	打开Terminal，输入以下命令：
+	source ~/Xilinx/Petalinux201802/settings.sh
+	或者将此命令加入到用户配置.bashrc文件的最后一行，以免每次输入；
+	确认Petalinux环境配置：
+	echo $PETALINUX
+	
