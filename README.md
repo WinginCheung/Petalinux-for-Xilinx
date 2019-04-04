@@ -2,7 +2,7 @@
 
 # Petalinux 2018.2 for Xilinx
 
-##1、概述
+## 1、概述
 
 ​	Petalinux是Xilinx公司推出的嵌入式Linux开发套件，包括了Linux Kernel、u-boot、device-tree、rootfs等源码、库，以及Yocto recipes，可以让客户很方便的生成、配置、编译及自定义。Petalinux支持Zynq UltraScale+ MPSoC、Zynq-7000全可编程SoC，以及MicroBlaze，可与Xilinx硬件设计工具Vivado协同工作，大大简化了Linux系统的开发工作。
 
@@ -88,7 +88,7 @@ md5sum -c petalinux-v2018.2-final-installer.md5
 petalinux-v2018.2-final-installer.run: OK
 ```
 
-###2.5 安装
+### 2.5 安装
 
 ​	根据Petalinux工具用户文档[UG1144(v2018.2)](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_2/ug1144-petalinux-tools-reference-guide.pdf) Page 12中的要求：
 
@@ -108,7 +108,7 @@ chmod +x petalinux-v2018.2-final-installer.run
 
 ### 2.6 环境配置
 
-####2.6.1 配置环境变量
+#### 2.6.1 配置环境变量
 
 ​	Petalinux安装完成后，需对其启动环境进行配置：
 
@@ -183,7 +183,7 @@ ls -l /bin/sh
 
 ## 3、Petalinux使用
 
-###3.1 创建工程
+### 3.1 创建工程
 
 ​	根据Petalinux工具用户文档[UG1144(v2018.2)](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_2/ug1144-petalinux-tools-reference-guide.pdf) Page 17中*Chapter 3 Creating a Project*，Petalinux创建工程有两种方式，分别为：
 
@@ -209,7 +209,7 @@ petalinux-create -t project -n <PROJECT-NAME> -s <PATH-TO-BSP>
 + <PROJECT-NAME>为工程名称，可省略；
 + <PATH-TO-BSP>为BSP包所在目录路径；
 
-####3.1.2 基于Vivado产生的硬件描述文件的工程创建
+#### 3.1.2 基于Vivado产生的硬件描述文件的工程创建
 
 ​	基于Vivado产生的硬件描述文件的工程创建，需要先从Vivado导出相应硬件描述文件，具体操作为：
 
