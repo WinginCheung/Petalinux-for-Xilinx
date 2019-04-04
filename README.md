@@ -695,7 +695,7 @@ FILES_${PN} = "${base_libdir}/modules/"
 ```makefile
 SRC_URI += "file://system-user.dtsi \
 	file://ksz9897r-conf-i2c.dtsi \
-           "
+	"
 ```
 
 ## 4、Petalinux系统优化
