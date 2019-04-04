@@ -193,7 +193,7 @@ ls -l /bin/sh
 
   下边，我们分别说明这两种方式的具体指令：
 
-####3.1.1 基于现有BSP文件的工程创建
+#### 3.1.1 基于现有BSP文件的工程创建
 
 ​	基于现有BSP文件的工程创建，需要先从[Xilinx官网](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-design-tools/2018-2.html)下载SoC相应的BSP包，或者从别处得到相应的BSP包。
 
