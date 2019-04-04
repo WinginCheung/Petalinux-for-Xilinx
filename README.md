@@ -388,17 +388,17 @@ S = "${WORKDIR}"
 TARGET_CC_ARCH += "${LDFLAGS}"
 
 SRC_URI = "file://lib.c \
-					file://lib.h \
-					file://Makefile \
-					"
+	file://lib.h \
+	file://Makefile \
+	"
 
 do_compile() {
-  				oe_runmake
+  	oe_runmake
 }
 
 do_install() {
-          install -d ${D}${libdir}
-          install -m 0655 ${S}/<LIB-NAME>.so ${D}${libdir}
+	install -d ${D}${libdir}
+	install -m 0655 ${S}/<LIB-NAME>.so ${D}${libdir}
 }
 
 FILES_${PN} += "${libdir}"
@@ -422,11 +422,11 @@ S = "${WORKDIR}"
 TARGET_CC_ARCH += "${LDFLAGS}"
 
 SRC_URI = "file://<LIB-NAME>.so \
-					"
+	"
 
 do_install() {
-          install -d ${D}${libdir}
-          install -m 0655 ${S}/<LIB-NAME>.so ${D}${libdir}
+	install -d ${D}${libdir}
+	install -m 0655 ${S}/<LIB-NAME>.so ${D}${libdir}
 }
 
 FILES_${PN} += "${libdir}"
@@ -458,17 +458,17 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 S = "${WORKDIR}"
 
 SRC_URI = "file://apps.c \
-					file://apps.h \
-					file://Makefile \
-					"
+	file://apps.h \
+	file://Makefile \
+	"
 
 do_compile() {
-  				oe_runmake
+	oe_runmake
 }
 
 do_install() {
-          install -d ${D}${bindir}
-          install -m 0755 ${S}/<APPS-NAME> ${D}${bindir}
+	install -d ${D}${bindir}
+	install -m 0755 ${S}/<APPS-NAME> ${D}${bindir}
 }
 ```
 
@@ -493,8 +493,8 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_PACKAGE_STRIP = "1"
 
 do_install() {
-    install -d ${D}/${bindir}
-    install -m 0755 ${S}/<APPS-NAME> ${D}/${bindir}
+	install -d ${D}/${bindir}
+	install -m 0755 ${S}/<APPS-NAME> ${D}/${bindir}
 }
 ```
 
@@ -573,8 +573,8 @@ INITSCRIPT_NAME = "autorun-script"
 INITSCRIPT_PARAMS = "start 99 S ."
 
 do_install() {
-	     install -d ${D}/${sysconfdir}/init.d
-	     install -m 0755 ${S}/autorun-script ${D}/${sysconfdir}/init.d/autorun-script
+	install -d ${D}/${sysconfdir}/init.d
+	install -m 0755 ${S}/autorun-script ${D}/${sysconfdir}/init.d/autorun-script
 }
 
 FILES_${PN} += "${sysconfdir}/*"
@@ -605,17 +605,17 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 S = "${WORKDIR}"
 
 SRC_URI = "file://module.c \
-					file://module.h \
-					file://Makefile \
-					"
+	file://module.h \
+	file://Makefile \
+	"
 
 do_compile() {
-  				oe_runmake
+	oe_runmake
 }
 
 do_install() {
-          install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
-          install -m 0755 ${S}/<MODULE-NAME>.ko ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
+	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
+	install -m 0755 ${S}/<MODULE-NAME>.ko ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
 }
 
 FILES_${PN} = "${base_libdir}/modules/"
@@ -634,15 +634,15 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 SRC_URI = "file://<MODULE-NAME>.ko \
-					"
+	"
 
 inherit module-base
 
 S = "${WORKDIR}"
 
 do_install() {
-          install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
-          install -m 0755 ${S}/<MODULE-NAME>.ko ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
+	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
+	install -m 0755 ${S}/<MODULE-NAME>.ko ${D}${base_libdir}/modules/${KERNEL_VERSION}/extra
 }
 
 FILES_${PN} = "${base_libdir}/modules/"
@@ -663,21 +663,21 @@ FILES_${PN} = "${base_libdir}/modules/"
 
 ```txt
 / {
-		amba: amba {
-			gem1: ethernet@e000c000 {
-				fixed-link {
-					speed = <1000>;
-          full-duplex;
-				};
-			};
-
-			i2c1: i2c@e0005000 {
-				clock-frequency = <38000>;
-				ksz9897r: ksz9897r@0 {
-					reg = <0x5f>;
-				};
+	amba: amba {
+		gem1: ethernet@e000c000 {
+			fixed-link {
+				speed = <1000>;
+				full-duplex;
 			};
 		};
+
+		i2c1: i2c@e0005000 {
+			clock-frequency = <38000>;
+			ksz9897r: ksz9897r@0 {
+				reg = <0x5f>;
+			};
+		};
+	};
 };
 ```
 
@@ -694,7 +694,7 @@ FILES_${PN} = "${base_libdir}/modules/"
 
 ```makefile
 SRC_URI += "file://system-user.dtsi \
-            file://ksz9897r-conf-i2c.dtsi \
+	file://ksz9897r-conf-i2c.dtsi \
            "
 ```
 
